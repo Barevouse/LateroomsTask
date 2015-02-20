@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>Laterooms Application</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/app.css">
+    <script>document.write("<base href=\"" + document.location + "\" />");</script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="HotelCtrl">
+     <input placeholder="Type to filter" ng-model="search.$">  
+    <button ng-click="columnSort.sortColumn=headers[$index];columnSort.reverse=!columnSort.reverse">Sort by Rating</button>
+    <table>
+        <thead>
+            <tr>
+                <th ng-repeat="header in headers">
+                                <a ng-click="columnSort.sortColumn=headers[$index];columnSort.reverse=!columnSort.reverse">{{ headers[$index] }}</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="hotel in hotels | filter:search | orderBy:columnSort.sortColumn:columnSort.reverse">
+            <td>{{hotel.Name}}</td>
+        <td>({{hotel.StarRating}}*)<td>
+            <td><span ng-repeat="facility in hotel.Facilities">{{facility}}, </span></td>
+            </tr>
+        </tbody>
+         </table>
+
+</body>
+</html>
+    
